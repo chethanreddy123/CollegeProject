@@ -6,6 +6,12 @@ import datetime
 
 import time
 
+
+from pymongo.mongo_client import MongoClient
+Data = MongoClient("mongodb+srv://chethanreddy1234:chethan1234@cluster0.yvbx0ko.mongodb.net/?retryWrites=true&w=majority")
+ConnectData = Data['Test']['Test']
+
+
 st.sidebar.title('Developer\'s Contact')
 st.sidebar.markdown('[![Chethan-Reddy]'
                   '(https://img.shields.io/badge/Author-Chethan%20Reddy-brightgreen)]'
@@ -43,34 +49,18 @@ with c10:
 with c11:
     y_cor7 = form.text_input("Enter the y - coordinate:7 ")
 
-check = form.form_submit_button("Add the Node to the Chain")
-
-my_bar = st.progress(0)
-my_bar.progress(10)
-time.sleep(0.1)
+submit = form.form_submit_button("Click Here to upload the data!")
 
 
-if check == True:
-    block = {
-        "Node_Name" : Node_Name,
-        "Node_Id" : Node_Id,
-        "x_cor" : x_cor,
-        "y_cor" : y_cor
+if submit == True:
+    MyData = {
+        "Patient_Name" :  Patient_Name,
+        "Patient_Age" : Patient_Age,
+        "Gender" : Gender
     }
-    my_bar.progress(10)
-    my_bar.progress(60)
-    time.sleep(1)
-    my_bar.progress(100)
-    if False:
-        st.warning("The blockchain is invalid and there is some error!!")
-    else:
-        CurrData = {"data" : block}
-        url = 'http://127.0.0.1:8000/add_new_block/'
-        json_object = json.dumps(CurrData, indent = 4) 
-        x = requests.post(url, data = json_object)
-        print(x)
-        print("Hello")
-        st.success("Your Node has been successfully added to the chain")
-        st.write("Below is the information of the block recently added:")
-        st.json(block)
+
+    Check = ConnectData.insert_one(MyData)
+
+    if Check:
+        st.success("Data SuccessFully uploaded!!")
 
