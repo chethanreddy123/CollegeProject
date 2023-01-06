@@ -17,7 +17,7 @@ st.sidebar.markdown('[![Chethan-Reddy]'
                   '(https://img.shields.io/badge/Author-Chethan%20Reddy-brightgreen)]'
                   '(https://www.linkedin.com/in/chethan-reddy-0201791ba/)') 
 
-st.sidebar.success("Guided By Vijaya Priay R")
+st.sidebar.success("Guided")
 
 st.title("Patient Details Form")
 
