@@ -46,7 +46,7 @@ if authentication_status == True:
     # Using object notation
     add_selectbox = st.sidebar.selectbox(
         "What would you like to do?",
-        ("Suggestions" ,    "Past Prescription of Patient" , "Recommend Videos" , "Track Exercise")
+        ("Exercise Review" , "Emergency Review", "Suggestions" , "Past Prescription of Patient" , "Recommend Videos" , "Track Exercise")
     )
 
     st.sidebar.title('Developer\'s Contact')
@@ -130,6 +130,40 @@ if authentication_status == True:
 
         tab2.subheader("A tab with the data")
         tab2.write(data)
+    elif add_selectbox == "Suggestions":
+        form = st.form(key="my-form" , clear_on_submit=True)
+        c1, c2 = st.columns(2)
+        with c1:
+            p_i = form.text_input("Enter the patient id")
+        with c2:
+            suggestion = form.text_input("Enter the Suggestion for this patient")
+        submit = form.form_submit_button("Suggest!!")
+
+        if submit == True:
+            ConnectData = Data['Test']['PopUps']
+            status = ConnectData.insert_one({"Patient_Id" : p_i , "Suggestion" : suggestion , "Check" : False})
+            if status:
+                st.success("Suggestion sent successfully to the Senior Doctor")
+            st.success("Suggestion sent successfully to the Senior Doctor")
+    elif add_selectbox == "Emergency Review":
+        st.subheader("Emergency Revi")
+        form = st.form(key="my-form" , clear_on_submit=True)
+        c1, c2 = st.columns(2)
+        with c1:
+            p_i = form.text_input("Enter the patient id")
+        with c2:
+            suggestion = form.text_input("Enter the information for emergency Review")
+        submit = form.form_submit_button("Raise an Emergency Review")
+
+        if submit == True:
+            ConnectData = Data['Test']['PopUps']
+            status = ConnectData.insert_one({"Patient_Id" : p_i , "Suggestion" : suggestion , "Check" : False})
+            if status:
+                st.success("Suggestion sent successfully to the Senior Doctor")
+            st.success("Suggestion sent successfully to the Senior Doctor")
+    elif add_selectbox == "Exercise Review":
+        pass
+
 
 elif authentication_status == False:
     st.warning("password wrong")

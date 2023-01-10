@@ -1,12 +1,10 @@
 import streamlit as st
+import sys
+from streamlit import cli as stcli
 
+click = st.button("Click me Here!")
 
-col1, col2, col3 = st.columns(3)
-col1.metric("Name", "Rick Jon")
-col2.metric("Age", "34")
-col3.metric("Gender", "Male")
-
-col1, col2, col3 = st.columns(3)
-col1.metric("Occupation", "Data Science")
-col2.metric("Age", "34")
-col3.metric("Gender", "Male")
+if click  == True:
+   if __name__ == '__main__':
+      sys.argv = ["streamlit", "run", "APP_NAME.py"]
+      sys.exit(stcli.main())

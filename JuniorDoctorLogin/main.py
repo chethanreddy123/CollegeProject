@@ -13,7 +13,7 @@ ConnectData = Data['Test']['Test']
 names = ["parker" , "henry"]
 usernames = ["parker123" , "henry123"]
 
-st.title("Senior Doctor Dash-Board👨‍⚕️")
+st.title("Junior Doctor Dash-Board👨‍⚕️")
 
 file_path = Path(__file__).parent / "hashed_pw.pkl"
 

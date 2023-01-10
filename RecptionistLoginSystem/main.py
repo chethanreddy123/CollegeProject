@@ -103,7 +103,8 @@ if authentication_status == True:
                 "Patient_Documents" : [],
                 "Senior_Doctors_Prescription" : [],
                 "Junior_Doctors_Prescription": [],
-                "Trainer_Prescription" : []
+                "Trainer_Prescription" : [],
+                "Trainer_Suggestions" : [],
             }
 
             Check = ConnectData.insert_one(MyData)
