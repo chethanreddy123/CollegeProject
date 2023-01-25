@@ -7,6 +7,7 @@ from pymongo.mongo_client import MongoClient
 import random as rd
 from datetime import datetime
 import numpy as np
+import pandas as pd
 
 Data = MongoClient("mongodb://chethanreddy1234:chethan1234@ac-s9dsrxv-shard-00-00.yvbx0ko.mongodb.net:27017,ac-s9dsrxv-shard-00-01.yvbx0ko.mongodb.net:27017,ac-s9dsrxv-shard-00-02.yvbx0ko.mongodb.net:27017/?ssl=true&replicaSet=atlas-1ohy5i-shard-0&authSource=admin&retryWrites=true&w=majority")
 ConnectData = Data['Test']['Test']
@@ -46,7 +47,7 @@ if authentication_status == True:
     # Using object notation
     add_selectbox = st.sidebar.selectbox(
         "What would you like to do?",
-        ("Exercise Review" , "Emergency Review", "Suggestions" , "Past Prescription of Patient" , "Recommend Videos" , "Track Exercise")
+        ( "Emergency Review", "Suggestions" , "Past Prescription of Patient" , "Recommend Videos" , "Track Exercise")
     )
 
     st.sidebar.title('Developer\'s Contact')
@@ -110,26 +111,51 @@ if authentication_status == True:
             st.success("Recommend Video Successfully")
     
     elif add_selectbox == "Track Exercise":
-        form = st.form(key="your-form")
-        c1, c2 = st.columns(2)
-        with c1:
-            VideoLink = form.text_input("Enter the patient ID:")
-        with c2:
-            Tags = form.text_input("Enter the patient name:")
-        
-        submit = form.form_submit_button("Show the day-to-day training")
+        st.title("Exerice and Training Tracker")
+        patient = st.text_input("Enter the Patient_ID")
 
-        if submit == True:
-            st.success("Recommend Video Successfully")
-        tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["📈 Day1", "📈 Day2", "📈 Day3", "📈 Day4", "📈 Day5", "📈 Day6"])
-        data = np.random.randn(10, 1)
+        if patient == "":
+            st.caption("Details Not Found, put the patient_Id")
+        else:
 
-        tab1.subheader("The following Vedio was recommended for day-1")
-        tab1.video("production.mp4")
-        tab1.button("click here to add comments")
+            Results = ConnectData.find_one({"Patient_Id" : patient})
+            SearchData = dict(Results)
 
-        tab2.subheader("A tab with the data")
-        tab2.write(data)
+            if SearchData == dict():
+                st.caption("Details Not Found, put the patient_Id")
+
+            else:
+                with st.expander("View Updated Data 💫"	, expanded=True):
+                    Day_Wise = list(SearchData["Trainer_Prescription"])
+                    print(Day_Wise)
+                    clean_df = pd.DataFrame(Day_Wise,columns=["Date","Discription","Pain Scale"])
+                    st.dataframe(clean_df)
+
+
+            st.subheader("Add the Exerise")
+            col1,col2 = st.columns(2)
+
+            with col1:
+                Disc = st.text_area("Enter the Description of the Exericse")
+
+            with col2:
+                pain_scale = st.selectbox("Enter the Pain Scale out of 10",[i for i in range(1,11)])
+                date = st.date_input("Enter the date")
+
+            if st.button("Click Here👨‍💻"):
+                myquery = { "Patient_Id" : patient }
+                Day_Wise.append([str(date),Disc,pain_scale])
+                newvalues = { "$set": { "Trainer_Prescription":Day_Wise } }
+
+                ConnectData.update_one(myquery, newvalues)
+                st.success("Exercise Added ✅")
+                    
+            with st.expander("Current Data"):
+                print(Day_Wise)
+                clean_df = pd.DataFrame(Day_Wise,columns=["Date","Discription","Pain Scale"])
+                st.dataframe(clean_df)
+                st.bar_chart(clean_df, x="Date" , y="Pain Scale")
+
     elif add_selectbox == "Suggestions":
         form = st.form(key="my-form" , clear_on_submit=True)
         c1, c2 = st.columns(2)
@@ -161,8 +187,6 @@ if authentication_status == True:
             if status:
                 st.success("Suggestion sent successfully to the Senior Doctor")
             st.success("Suggestion sent successfully to the Senior Doctor")
-    elif add_selectbox == "Exercise Review":
-        pass
 
 
 elif authentication_status == False:
