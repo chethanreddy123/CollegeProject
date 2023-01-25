@@ -5,7 +5,7 @@ import pickle
 import datetime
 from pymongo.mongo_client import MongoClient
 import random as rd
-
+import pandas as pd
 Data = MongoClient("mongodb://chethanreddy1234:1234@ac-s9dsrxv-shard-00-00.yvbx0ko.mongodb.net:27017,ac-s9dsrxv-shard-00-01.yvbx0ko.mongodb.net:27017,ac-s9dsrxv-shard-00-02.yvbx0ko.mongodb.net:27017/?ssl=true&replicaSet=atlas-1ohy5i-shard-0&authSource=admin&retryWrites=true&w=majority")
 ConnectData = Data['Test']['Test']
 
@@ -44,7 +44,7 @@ if authentication_status == True:
     # Using object notation
     add_selectbox = st.sidebar.selectbox(
         "What would you like to do?",
-        ("Patient Prescription", "Past Prescription")
+        ("Patient Prescription", "Past Prescription" , "Emergency Review", "Suggestion" , "Track Exercise")
     )
 
     st.sidebar.title('Developer\'s Contact')
@@ -123,6 +123,83 @@ if authentication_status == True:
             Referal_Doctor = form.text_input("Enter the referal doctor")
 
         submit = form.form_submit_button("Click Here to upload the data!")
+    elif add_selectbox == "Track Exercise":
+        st.title("Exerice and Training Tracker")
+        patient = st.text_input("Enter the Patient_ID")
+
+        if patient == "":
+            st.caption("Details Not Found, put the patient_Id")
+        else:
+
+            Results = ConnectData.find_one({"Patient_Id" : patient})
+            SearchData = dict(Results)
+
+            if SearchData == dict():
+                st.caption("Details Not Found, put the patient_Id")
+
+            else:
+                with st.expander("View Updated Data 💫"	, expanded=True):
+                    Day_Wise = list(SearchData["Trainer_Prescription"])
+                    print(Day_Wise)
+                    clean_df = pd.DataFrame(Day_Wise,columns=["Date","Discription","Pain Scale"])
+                    st.dataframe(clean_df)
+
+
+            st.subheader("Add the Exerise")
+            col1,col2 = st.columns(2)
+
+            with col1:
+                Disc = st.text_area("Enter the Description of the Exericse")
+
+            with col2:
+                pain_scale = st.selectbox("Enter the Pain Scale out of 10",[i for i in range(1,11)])
+                date = st.date_input("Enter the date")
+
+            if st.button("Click Here👨‍💻"):
+                myquery = { "Patient_Id" : patient }
+                Day_Wise.append([str(date),Disc,pain_scale])
+                newvalues = { "$set": { "Trainer_Prescription":Day_Wise } }
+
+                ConnectData.update_one(myquery, newvalues)
+                st.success("Exercise Added ✅")
+                    
+            with st.expander("Current Data"):
+                print(Day_Wise)
+                clean_df = pd.DataFrame(Day_Wise,columns=["Date","Discription","Pain Scale"])
+                st.dataframe(clean_df)
+                st.bar_chart(clean_df, x="Date" , y="Pain Scale")
+
+    elif add_selectbox == "Suggestions":
+        form = st.form(key="my-form" , clear_on_submit=True)
+        c1, c2 = st.columns(2)
+        with c1:
+            p_i = form.text_input("Enter the patient id")
+        with c2:
+            suggestion = form.text_input("Enter the Suggestion for this patient")
+        submit = form.form_submit_button("Suggest!!")
+
+        if submit == True:
+            ConnectData = Data['Test']['PopUps']
+            status = ConnectData.insert_one({"Patient_Id" : p_i , "Suggestion" : suggestion , "Check" : False})
+            if status:
+                st.success("Suggestion sent successfully to the Senior Doctor")
+            st.success("Suggestion sent successfully to the Senior Doctor")
+    elif add_selectbox == "Emergency Review":
+        st.subheader("Emergency Review")
+        form = st.form(key="my-form" , clear_on_submit=True)
+        c1, c2 = st.columns(2)
+        with c1:
+            p_i = form.text_input("Enter the patient id")
+        with c2:
+            suggestion = form.text_input("Enter the information for emergency Review")
+        submit = form.form_submit_button("Raise an Emergency Review")
+
+        if submit == True:
+            ConnectData = Data['Test']['PopUps']
+            status = ConnectData.insert_one({"Patient_Id" : p_i , "Suggestion" : suggestion , "Check" : False})
+            if status:
+                st.success("Suggestion sent successfully to the Senior Doctor")
+            st.success("Suggestion sent successfully to the Senior Doctor")
 
 elif authentication_status == False:
     st.warning("password wrong")
