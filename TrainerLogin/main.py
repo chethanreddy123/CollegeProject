@@ -8,7 +8,7 @@ import random as rd
 from datetime import datetime
 import numpy as np
 
-Data = MongoClient("mongodb+srv://chethanreddy1234:chethan1234@cluster0.yvbx0ko.mongodb.net/?retryWrites=true&w=majority")
+Data = MongoClient("mongodb://chethanreddy1234:chethan1234@ac-s9dsrxv-shard-00-00.yvbx0ko.mongodb.net:27017,ac-s9dsrxv-shard-00-01.yvbx0ko.mongodb.net:27017,ac-s9dsrxv-shard-00-02.yvbx0ko.mongodb.net:27017/?ssl=true&replicaSet=atlas-1ohy5i-shard-0&authSource=admin&retryWrites=true&w=majority")
 ConnectData = Data['Test']['Test']
 
 
@@ -146,7 +146,7 @@ if authentication_status == True:
                 st.success("Suggestion sent successfully to the Senior Doctor")
             st.success("Suggestion sent successfully to the Senior Doctor")
     elif add_selectbox == "Emergency Review":
-        st.subheader("Emergency Revi")
+        st.subheader("Emergency Review")
         form = st.form(key="my-form" , clear_on_submit=True)
         c1, c2 = st.columns(2)
         with c1:

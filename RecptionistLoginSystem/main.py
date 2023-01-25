@@ -5,6 +5,7 @@ import pickle
 import datetime
 from pymongo.mongo_client import MongoClient
 import random as rd
+from datetime import datetime
 
 Data = MongoClient("mongodb://chethanreddy1234:chethan1234@ac-s9dsrxv-shard-00-00.yvbx0ko.mongodb.net:27017,ac-s9dsrxv-shard-00-01.yvbx0ko.mongodb.net:27017,ac-s9dsrxv-shard-00-02.yvbx0ko.mongodb.net:27017/?ssl=true&replicaSet=atlas-1ohy5i-shard-0&authSource=admin&retryWrites=true&w=majority")
 ConnectData = Data['Test']['Test']
@@ -71,7 +72,7 @@ if authentication_status == True:
         with c6:
             Address = form.text_input("Enter the address")
         with c7:
-            DateOfAsses = form.date_input("Enter the Data of Assessment",datetime.date.today())
+            DateOfAsses = form.date_input("Enter the Data of Assessment",datetime.now())
         with c8:
             Complaint = form.text_area("Enter the Complaint")
         with c9:
@@ -105,11 +106,12 @@ if authentication_status == True:
                 "Junior_Doctors_Prescription": [],
                 "Trainer_Prescription" : [],
                 "Trainer_Suggestions" : [],
+                "Tracker" : [(datetime.now() , "Filled the Form by %s"%name)]
             }
 
-            Check = ConnectData.insert_one(MyData)
 
-            if Check:
+            with st.spinner('Wait for it...'):
+                Check = ConnectData.insert_one(MyData)
                 st.success("Data SuccessFully uploaded!")
                 st.success(f"Patient_ID : {Patient_Id}")
 
