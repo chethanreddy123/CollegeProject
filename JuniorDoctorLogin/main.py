@@ -158,7 +158,7 @@ if authentication_status == True:
             if st.button("Click Here👨‍💻"):
                 myquery = { "Patient_Id" : patient }
                 Day_Wise.append([str(date),Disc,pain_scale])
-                newvalues = { "$set": { "Trainer_Prescription":Day_Wise } }
+                newvalues = { "$set": { "Junior_Doctors_Prescription":Day_Wise } }
 
                 ConnectData.update_one(myquery, newvalues)
                 st.success("Exercise Added ✅")
