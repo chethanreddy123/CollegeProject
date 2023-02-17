@@ -6,6 +6,9 @@ import datetime
 from pymongo.mongo_client import MongoClient
 import random as rd
 import pandas as pd
+import os
+
+
 Data = MongoClient("mongodb://chethanreddy1234:chethan1234@ac-s9dsrxv-shard-00-00.yvbx0ko.mongodb.net:27017,ac-s9dsrxv-shard-00-01.yvbx0ko.mongodb.net:27017,ac-s9dsrxv-shard-00-02.yvbx0ko.mongodb.net:27017/?ssl=true&replicaSet=atlas-1ohy5i-shard-0&authSource=admin&retryWrites=true&w=majority")
 ConnectData = Data['Test']['Test']
 
