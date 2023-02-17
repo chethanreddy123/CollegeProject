@@ -93,36 +93,36 @@ if authentication_status == True:
             for i in Results:
                 st.json(i)
             
-    Click = st.button("Click Here to Add Prescription")
+        Click = st.button("Click Here to Add Prescription")
 
-    if Click == True:
-        st.title("Patient Details Form")
-        form = st.form(key="your-form")
-        c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11 = st.columns(11)
-        with c1:
-            Patient_Name = form.text_input("Enter the name of patient")
-        with c2:
-            Patient_Age = form.text_input("Enter the age: ")
-        with c3:
-            Gender = form.selectbox("Enter the Gender" , ["Male" , "Female" , "Trans"])
-        with c4:
-            contact_number = form.text_input("Enter the Phone Number")
-        with c5:
-            Occupation = form.text_input("Enter the Occupation")
-        with c6:
-            Address = form.text_input("Enter the address")
-        with c7:
-            DateOfAsses = form.date_input("Enter the Data of Assessment",datetime.date.today())
-        with c8:
-            Complaint = form.text_area("Enter the Complaint")
-        with c9:
-            Past_History = form.text_input("Enter medical history")
-        with c10:
-            Surgical_History = form.text_input("Enter surgical history")
-        with c11:
-            Referal_Doctor = form.text_input("Enter the referal doctor")
+        if Click == True:
+            st.title("Patient Details Form")
+            form = st.form(key="your-form")
+            c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11 = st.columns(11)
+            with c1:
+                Patient_Name = form.text_input("Enter the name of patient")
+            with c2:
+                Patient_Age = form.text_input("Enter the age: ")
+            with c3:
+                Gender = form.selectbox("Enter the Gender" , ["Male" , "Female" , "Trans"])
+            with c4:
+                contact_number = form.text_input("Enter the Phone Number")
+            with c5:
+                Occupation = form.text_input("Enter the Occupation")
+            with c6:
+                Address = form.text_input("Enter the address")
+            with c7:
+                DateOfAsses = form.date_input("Enter the Data of Assessment",datetime.date.today())
+            with c8:
+                Complaint = form.text_area("Enter the Complaint")
+            with c9:
+                Past_History = form.text_input("Enter medical history")
+            with c10:
+                Surgical_History = form.text_input("Enter surgical history")
+            with c11:
+                Referal_Doctor = form.text_input("Enter the referal doctor")
 
-        submit = form.form_submit_button("Click Here to upload the data!")
+            submit = form.form_submit_button("Click Here to upload the data!")
     elif add_selectbox == "Track Exercise":
         st.title("Exerice and Training Tracker")
         patient = st.text_input("Enter the Patient_ID")
@@ -139,7 +139,7 @@ if authentication_status == True:
 
             else:
                 with st.expander("View Updated Data 💫"	, expanded=True):
-                    Day_Wise = list(SearchData["Trainer_Prescription"])
+                    Day_Wise = list(SearchData["Junior_Doctors_Prescription"])
                     print(Day_Wise)
                     clean_df = pd.DataFrame(Day_Wise,columns=["Date","Discription","Pain Scale"])
                     st.dataframe(clean_df)
