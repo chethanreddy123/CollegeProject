@@ -14,7 +14,7 @@ import io
 import plotly.express as px
 import numpy as np
 
-Data = MongoClient("mongodb://chethanreddy1234:chethan1234@ac-s9dsrxv-shard-00-00.yvbx0ko.mongodb.net:27017,ac-s9dsrxv-shard-00-01.yvbx0ko.mongodb.net:27017,ac-s9dsrxv-shard-00-02.yvbx0ko.mongodb.net:27017/?ssl=true&replicaSet=atlas-1ohy5i-shard-0&authSource=admin&retryWrites=true&w=majority")
+Data = MongoClient("mongodb://localhost:27017/")
 ConnectData = Data['Test']['Test']
 
 

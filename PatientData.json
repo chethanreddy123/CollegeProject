@@ -1,0 +1,38 @@
+{
+    "Patient_Id" : Patient_Id,
+    "Patient_Name" : Patient_Name,
+    "Patient_Age" : Patient_Age,
+    "Patient_Gender" : Gender,
+    "Patient_Contact_No" : contact_number,
+    "Employed" : Employed,
+    "Occupation" : Occupation,
+    "Address" : Address,
+    "DateOfAsses" : [DateOfAsses],
+    "Complaint" : [Complaint],
+    "Injury" : [Injury],
+    "DateOfInjury" : [DateOfInjury],
+    "DateOfInjuryforSurgery" : [DateOfInjuryforSurgery],
+    "DecriptionOfSurgery" : [DecriptionOfSurgery],
+    "RecievedTherapy" : [RecievedTherapy],
+    "DateofTherapy" : [DateofTherapy],
+    "CurrentCondition" : [CurrentCondition],
+    "currentStatusSymptoms" : [currentStatuSymptoms],
+    "AtBestPain" :  [AtBestPain],
+    "AtWorstPain" : [AtWorstPain],
+    "Surgical_History" : [Surgical_History],
+    "Referal_Doctor" : [Referal_Doctor],
+    "MakesConditionBetter" : [MakesConditionBetter],
+    "MakesConditionBetterWorse" : [MakesConditionBetterWorse],
+    "MedicalIntervention" : [MedicalIntervention],
+    "GoalsAfterTreat" : [GoalsAfterTreat],
+    "MedicalInformation" : [MedicalInformation],
+    "PrevSurger" : [PrevSurger],
+    "OtherInfo" : [OtherInfo],
+    "Medications" : [Medications],
+    "Allergies" : [Allergies]
+}
+
+
+
+index = myData['CurrentCondition'][0]
+index = myData['currentStatusSymptoms'][0]
