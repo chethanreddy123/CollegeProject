@@ -1,17 +1,15 @@
 import streamlit as st
-import datetime
-
-from pymongo.mongo_client import MongoClient
-
-Data = MongoClient("mongodb://localhost:27017/")
-ConnectData = Data['Test']['Test']
-
-d = datetime.datetime.now()
 
 
+add_selectbox = st.sidebar.selectbox(
+        "What would you like to do?",
+        ("New Patient Registration", "Old-Patient Veiw \ Update" , "Old Patient Re-Visit Again" , "Payment Details" , "Feedback")
+    )
 
-data = st.date_input("Enter the Date" , datetime.datetime.now())
 
-l = ConnectData.find_one({'date' :d})
+st.title("Doctor Recommended Video")
 
-diaply = st.date_input("Display date is",l)
+video_file = open('production ID_3760968.mp4', 'rb')
+video_bytes = video_file.read()
+
+st.video(video_bytes)
